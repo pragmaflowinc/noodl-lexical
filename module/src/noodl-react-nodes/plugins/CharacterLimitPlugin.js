@@ -7,7 +7,7 @@ import { defineReactNode } from '@noodl/noodl-sdk'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import React, { useMemo, useState } from 'react'
 
-import { useCharacterLimit } from '../hooks/useCharacterLimit'
+import { useCharacterLimit } from '../../hooks/useCharacterLimit'
 
 let textEncoderInstance = null
 

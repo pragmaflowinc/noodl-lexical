@@ -16,10 +16,10 @@ import {
 import { useEffect, useState } from 'react'
 import * as React from 'react'
 
-import { $createPollNode, PollNode } from '../nodes/PollNode'
-import Button from '../ui/Button'
-import { DialogActions } from '../ui/Dialog'
-import TextInput from '../ui/TextInput'
+import { $createPollNode, PollNode } from '../../nodes/PollNode'
+import Button from '../../ui/Button'
+import { DialogActions } from '../../ui/Dialog'
+import TextInput from '../../ui/TextInput'
 import { defineReactNode } from '@noodl/noodl-sdk'
 
 export const INSERT_POLL_COMMAND = createCommand(

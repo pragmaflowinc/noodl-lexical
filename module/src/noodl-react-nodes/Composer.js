@@ -13,8 +13,8 @@ import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 
-import { SettingsProvider } from './context/SettingsContext'
-import NoodleEditorTheme from './themes/NoodlEditorTheme'
+import { SettingsProvider } from '../context/SettingsContext'
+import NoodleEditorTheme from '../themes/NoodlEditorTheme'
 import { Nodes } from '../nodes'
 
 const emptyEditorState = '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
@@ -48,7 +48,7 @@ function Composer(props) {
   return (
     <SettingsProvider>
       <LexicalComposer initialConfig={initialState}>
-          {props.children}
+        {props.children}
       </LexicalComposer>
     </SettingsProvider>
   )

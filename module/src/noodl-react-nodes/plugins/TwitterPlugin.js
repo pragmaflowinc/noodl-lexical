@@ -10,25 +10,26 @@ import { $insertNodeToNearestRoot } from '@lexical/utils'
 import { COMMAND_PRIORITY_EDITOR, createCommand } from 'lexical'
 import { useEffect } from 'react'
 
-import { $createFigmaNode, FigmaNode } from '../nodes/figmaNode'
+import { $createTweetNode, TweetNode } from '../../nodes/TweetNode'
 
-export const INSERT_FIGMA_COMMAND = createCommand(
-  'INSERT_FIGMA_COMMAND'
+export const INSERT_TWEET_COMMAND = createCommand(
+  'INSERT_TWEET_COMMAND'
 )
 
-export function FigmaPlugin() {
+export function TwitterPlugin() {
   const [editor] = useLexicalComposerContext()
 
   useEffect(() => {
-    if (!editor.hasNodes([FigmaNode])) {
-      throw new Error('FigmaPlugin: FigmaNode not registered on editor')
+    if (!editor.hasNodes([TweetNode])) {
+      throw new Error('TwitterPlugin: TweetNode not registered on editor')
     }
 
     return editor.registerCommand(
-      INSERT_FIGMA_COMMAND,
+      INSERT_TWEET_COMMAND,
       (payload) => {
-        const figmaNode = $createFigmaNode(payload)
-        $insertNodeToNearestRoot(figmaNode)
+        const tweetNode = $createTweetNode(payload)
+        $insertNodeToNearestRoot(tweetNode)
+
         return true
       },
       COMMAND_PRIORITY_EDITOR
@@ -39,9 +40,9 @@ export function FigmaPlugin() {
 }
 
 export default defineReactNode({
-  name: 'Lexical Figma',
+  name: 'Lexical Twitter',
   category: 'Lexical',
   getReactComponent() {
-    return FigmaPlugin
+    return TwitterPlugin
   }
 })

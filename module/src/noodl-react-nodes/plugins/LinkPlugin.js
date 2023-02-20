@@ -1,5 +1,5 @@
 import { LinkPlugin as LexicalLinkPlugin } from '@lexical/react/LexicalLinkPlugin'
-import { validateUrl } from '../utils/url'
+import { validateUrl } from '../../utils/url'
 import React from 'react'
 import { defineReactNode } from '@noodl/noodl-sdk'
 

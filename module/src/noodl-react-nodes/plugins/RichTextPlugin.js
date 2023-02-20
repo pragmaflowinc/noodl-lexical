@@ -3,8 +3,8 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
-import { useSettings } from '../context/SettingsContext'
-import Placeholder from '../ui/Placeholder'
+import { useSettings } from '../../context/SettingsContext'
+import Placeholder from '../../ui/Placeholder'
 import React, { useEffect } from 'react'
 
 function RichText({ placeholder, readOnly, ...rest }) {

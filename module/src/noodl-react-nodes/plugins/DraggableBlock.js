@@ -22,10 +22,10 @@ import * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-import { isHTMLElement } from '../utils/guard'
-import { Point } from '../utils/point'
-import { Rect } from '../utils/rect'
-import { useSettings } from '../context/SettingsContext'
+import { isHTMLElement } from '../../utils/guard'
+import { Point } from '../../utils/point'
+import { Rect } from '../../utils/rect'
+import { useSettings } from '../../context/SettingsContext'
 
 const SPACE = 4
 const TARGET_LINE_HALF_HEIGHT = 2
