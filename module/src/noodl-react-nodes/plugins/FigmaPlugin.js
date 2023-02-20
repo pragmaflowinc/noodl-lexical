@@ -10,7 +10,7 @@ import { $insertNodeToNearestRoot } from '@lexical/utils'
 import { COMMAND_PRIORITY_EDITOR, createCommand } from 'lexical'
 import { useEffect } from 'react'
 
-import { $createFigmaNode, FigmaNode } from '../../nodes/figmaNode'
+import { $createFigmaNode, FigmaNode } from '../../nodes/FigmaNode'
 
 export const INSERT_FIGMA_COMMAND = createCommand(
   'INSERT_FIGMA_COMMAND'

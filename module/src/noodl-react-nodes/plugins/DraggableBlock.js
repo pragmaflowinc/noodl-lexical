@@ -3,7 +3,7 @@
  * Modified by PragmaFlow, Inc for use in Noodl
  *
  */
-import './draggableBlock.css'
+import './DraggableBlock.css'
 import { defineReactNode } from '@noodl/noodl-sdk'
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
