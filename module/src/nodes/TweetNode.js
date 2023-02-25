@@ -7,7 +7,7 @@ import { BlockWithAlignableContents } from '@lexical/react/LexicalBlockWithAlign
 import { DecoratorBlockNode } from '@lexical/react/LexicalDecoratorBlockNode'
 import * as React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { defineNode } from '../noodl-sdk'
+import { defineLexicalNode } from '../utils/defineLexicalNode'
 
 const WIDGET_SCRIPT_URL = 'https://platform.twitter.com/widgets.js'
 
@@ -189,12 +189,7 @@ export function $isTweetNode(
   return node instanceof TweetNode
 }
 
-export const NoodlTweetNode = defineNode({
-  name: 'Lexical TweetNode',
-  category: 'Lexical Nodes',
-  initialize() {
-    this.setOutputs({
-      node: TweetNode
-    })
-  }
+export const NoodlTweetNode = defineLexicalNode({
+  name: 'TweetNode',
+  node: TweetNode
 })

@@ -47,6 +47,5 @@ export const ComposerReactNode = defineReactNode({
       type: 'array',
       displayName: 'Nodes'
     }
-
   }
 })

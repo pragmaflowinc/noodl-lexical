@@ -4,11 +4,11 @@
  *
  */
 
-import { defineNode } from '../noodl-sdk'
 import {
   $applyNodeReplacement,
   TextNode
 } from 'lexical'
+import { defineLexicalNode } from '../utils/defineLexicalNode'
 
 function convertMentionElement(
   domNode
@@ -106,12 +106,7 @@ export function $isMentionNode(
   return node instanceof MentionNode
 }
 
-export const NoodlMentionNode = defineNode({
-  name: 'Lexical MentionNode',
-  category: 'Lexical Nodes',
-  initialize() {
-    this.setOutputs({
-      node: MentionNode
-    })
-  }
+export const NoodlMentionNode = defineLexicalNode({
+  name: 'MentionNode',
+  node: MentionNode
 })

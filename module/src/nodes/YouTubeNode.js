@@ -6,7 +6,7 @@
 import { BlockWithAlignableContents } from '@lexical/react/LexicalBlockWithAlignableContents'
 import { DecoratorBlockNode } from '@lexical/react/LexicalDecoratorBlockNode'
 import * as React from 'react'
-import { defineNode } from '../noodl-sdk'
+import { defineLexicalNode } from '../utils/defineLexicalNode'
 
 function YouTubeComponent({
   className,
@@ -150,12 +150,7 @@ export function $isYouTubeNode(
   return node instanceof YouTubeNode
 }
 
-export const NoodlYouTubeNode = defineNode({
-  name: 'Lexical YouTubeNode',
-  category: 'Lexical Nodes',
-  initialize() {
-    this.setOutputs({
-      node: YouTubeNode
-    })
-  }
+export const NoodlYouTubeNode = defineLexicalNode({
+  name: 'YouTubeNode',
+  node: YouTubeNode
 })

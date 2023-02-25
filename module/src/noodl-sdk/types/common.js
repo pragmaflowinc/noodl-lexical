@@ -20,6 +20,7 @@ export function parseColor(value) {
 
     const colors = Object.keys(ColorTypesCache);
     if (colors.includes(value)) {
+        alert('ColorTypesCache[value]')
         return ColorTypesCache[value]
     }
 

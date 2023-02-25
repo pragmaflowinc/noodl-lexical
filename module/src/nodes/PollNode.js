@@ -7,7 +7,7 @@
 import { DecoratorNode } from 'lexical'
 import * as React from 'react'
 import { Suspense } from 'react'
-import { defineNode } from '../noodl-sdk'
+import { defineLexicalNode } from '../utils/defineLexicalNode'
 
 const PollComponent = React.lazy(() => import('./PollComponent'))
 
@@ -172,12 +172,7 @@ export function $isPollNode(_node) {
   return _node instanceof PollNode
 }
 
-export const NoodlPollNode = defineNode({
-  name: 'Lexical PollNode',
-  category: 'Lexical Nodes',
-  initialize() {
-    this.setOutputs({
-      node: PollNode
-    })
-  }
+export const NoodlPollNode = defineLexicalNode({
+  name: 'PollNode',
+  node: PollNode
 })

@@ -8,7 +8,17 @@ import {
   NoodlCodeHighlightNode,
   NoodlAutoLinkNode,
   NoodlCodeNode,
-  NoodlLinkNode
+  NoodlLinkNode,
+  NoodlHeadingNode,
+  NoodlHorizontalRuleNode,
+  NoodlListItemNode,
+  NoodlListNode,
+  NoodlMarkNode,
+  NoodlOverflowNode,
+  NoodlQuoteNode,
+  NoodlTableCellNode,
+  NoodlTableNode,
+  NoodlTableRowNode,
 } from "./BuiltinNodes";
 
 export const Nodes = [
@@ -22,4 +32,14 @@ export const Nodes = [
   NoodlYouTubeNode,
   NoodlMentionNode,
   NoodlPollNode,
+  NoodlHeadingNode,
+  NoodlHorizontalRuleNode,
+  NoodlListItemNode,
+  NoodlListNode,
+  NoodlMarkNode,
+  NoodlOverflowNode,
+  NoodlQuoteNode,
+  NoodlTableCellNode,
+  NoodlTableNode,
+  NoodlTableRowNode,
 ];

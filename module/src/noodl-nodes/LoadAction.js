@@ -1,21 +1,12 @@
-import { defineNode } from '@noodl/noodl-sdk'
 import { CLEAR_HISTORY_COMMAND } from 'lexical'
+import { defineLexicalAction } from '../utils/defineLexicalAction'
 
-export default defineNode({
-  name: 'Lexical LoadAction',
-  category: 'Lexical',
+export const NoodlLoadAction = defineLexicalAction({
+  name: 'LoadAction',
   inputs: {
-    editorRef: {
-      displayName: 'Editor Reference',
-      type: 'object'
-    },
     desiredState: {
-      displayName: 'Editor State',
+      displayName: 'Desired Editor State',
       type: 'object'
-    },
-    stateLoad: {
-      displayName: 'State Load',
-      type: 'signal'
     }
   },
   outputs: {
@@ -24,18 +15,14 @@ export default defineNode({
       type: 'signal'
     }
   },
-  signals: {
-    stateLoad: {
-      displayName: 'State Load',
-      signal() {
-        const editorState = this.inputs.editorRef.parseEditorState(
-          JSON.stringify(this.inputs.desiredState.editorState)
-        )
-        this.inputs.editorRef.setEditorState(editorState)
-        this.inputs.editorRef.dispatchCommand(CLEAR_HISTORY_COMMAND, undefined)
+  onAction: (_this) => {
+    debugger
+    const editorState = _this.inputs.editorRef.parseEditorState(
+      JSON.stringify(_this.inputs.desiredState.editorState)
+    )
+    _this.inputs.editorRef.setEditorState(editorState)
+    _this.inputs.editorRef.dispatchCommand(CLEAR_HISTORY_COMMAND, undefined)
 
-        this.sendSignalOnOutput('stateLoaded')
-      }
-    }
+    _this.sendSignalOnOutput('stateLoaded')
   }
 })

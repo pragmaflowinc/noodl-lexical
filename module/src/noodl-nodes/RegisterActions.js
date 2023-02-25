@@ -1,10 +1,10 @@
 import { defineNode } from "../noodl-sdk";
-export default defineNode({
-  name: 'Lexical RegisterNodes',
-  category: 'Lexical Nodes',
-  color: 'data',
+export const NoodleRegisterActions = defineNode({
+  name: 'Lexical RegisterActions',
+  category: 'Lexical Action',
+  color: 'component',
   allowChildren: true,
-  allowChildrenWithCategory: ['Lexical Nodes'],
+  allowChildrenWithCategory: ['Lexical Action'],
   initialize() {
     this._internal.children = []
     this.setOutputs({
@@ -12,15 +12,28 @@ export default defineNode({
     })
     this.clearWarnings();
   },
+  inputs: {
+    editorRef: {
+      type: 'object',
+      displayName: 'Editor Ref'
+    }
+  },
   outputs: {
     nodes: {
       type: 'array',
-      displayName: 'Lexical Nodes'
+      displayName: 'Lexical Actions'
+    }
+  },
+  changed: {
+    editorRef(value) {
+      this._internal.children.forEach(child => child.inputs.editorRef = value)
     }
   },
   methods: {
     addChild(child, index) {
+      debugger
       child.parent = this;
+      child.inputs.editorRef = this.inputs.editorRef
       this._internal.children.push(child);
     },
     removeChild(child) {

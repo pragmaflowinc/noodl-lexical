@@ -7,7 +7,7 @@
 import { BlockWithAlignableContents } from '@lexical/react/LexicalBlockWithAlignableContents'
 import { DecoratorBlockNode } from '@lexical/react/LexicalDecoratorBlockNode'
 import * as React from 'react'
-import { defineNode } from '../noodl-sdk'
+import { defineLexicalNode } from '../utils/defineLexicalNode'
 
 function FigmaComponent({
   className,
@@ -108,13 +108,7 @@ export function $isFigmaNode(
   return node instanceof FigmaNode
 }
 
-export const NoodlFigmaNode = defineNode({
-  name: 'Lexical FigmaNode',
-  category: 'Lexical Nodes',
-  initialize() {
-    this.clearWarnings();
-    this.setOutputs({
-      node: FigmaNode
-    })
-  }
+export const NoodlFigmaNode = defineLexicalNode({
+  name: 'FigmaNode',
+  node: FigmaNode
 })
