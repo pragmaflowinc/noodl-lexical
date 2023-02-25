@@ -5,7 +5,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const pjson = require('./package.json')
-const outputPath = path.resolve(__dirname, '../project/noodl_modules/' + pjson.name)
 
 function stripStartDirectories(targetPath, numDirs) {
   const p = targetPath.split('/')
@@ -13,65 +12,70 @@ function stripStartDirectories(targetPath, numDirs) {
   return p.join('/')
 }
 
-module.exports = {
-  entry: './src/index.js',
-  mode: 'production',
-  devtool: 'source-map',
-  output: {
-    filename: 'index.js',
-    path: outputPath
-  },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM'
-  },
-  resolve: {
-    extensions: ['.js', '.jsx', '.json', '.css']
-  },
-  plugins: [
-    new CleanWebpackPlugin(outputPath),
-    new CopyWebpackPlugin([
-      { from: 'assets/**/*', transformPath: targetPath => stripStartDirectories(targetPath, 1) }
-    ]),
+module.exports = (env) => {
+  console.log(env)
+  const outputPath = env.output ? path.resolve(env.output, pjson.name) : path.resolve(__dirname, '../project/noodl_modules/' + pjson.name)
 
-    // Copy the generated module files to the tests project if it exists
-    {
-      apply: (compiler) => {
-        compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
-          if (fs.existsSync(path.resolve(__dirname, '../tests'))) {
-            fs.copySync(outputPath, path.resolve(__dirname, '../tests/noodl_modules/' + pjson.name))
-          }
-        })
-      }
-    }
-  ],
-  module: {
-    rules: [
+  return {
+    entry: './src/index.js',
+    mode: 'production',
+    devtool: 'source-map',
+    output: {
+      filename: 'index.js',
+      path: outputPath
+    },
+    externals: {
+      react: 'React',
+      'react-dom': 'ReactDOM'
+    },
+    resolve: {
+      extensions: ['.js', '.jsx', '.json', '.css']
+    },
+    plugins: [
+      new CleanWebpackPlugin(outputPath),
+      new CopyWebpackPlugin([
+        { from: 'assets/**/*', transformPath: targetPath => stripStartDirectories(targetPath, 1) }
+      ]),
+
+      // Copy the generated module files to the tests project if it exists
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react']
-        }
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: 'svg-url-loader',
-            options: {
-              limit: 10000
+        apply: (compiler) => {
+          compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
+            if (fs.existsSync(path.resolve(__dirname, '../tests'))) {
+              fs.copySync(outputPath, path.resolve(__dirname, '../tests/noodl_modules/' + pjson.name))
             }
-          }
-        ]
+          })
+        }
       }
-    ]
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        },
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            'css-loader'
+          ]
+        },
+        {
+          test: /\.svg$/,
+          use: [
+            {
+              loader: 'svg-url-loader',
+              options: {
+                limit: 10000
+              }
+            }
+          ]
+        }
+      ]
+    }
   }
 }

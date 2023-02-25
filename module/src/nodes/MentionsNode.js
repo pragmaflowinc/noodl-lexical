@@ -4,6 +4,7 @@
  *
  */
 
+import { defineNode } from '../noodl-sdk'
 import {
   $applyNodeReplacement,
   TextNode
@@ -104,3 +105,13 @@ export function $isMentionNode(
 ) {
   return node instanceof MentionNode
 }
+
+export const NoodlMentionNode = defineNode({
+  name: 'Lexical MentionNode',
+  category: 'Lexical Nodes',
+  initialize() {
+    this.setOutputs({
+      node: MentionNode
+    })
+  }
+})
