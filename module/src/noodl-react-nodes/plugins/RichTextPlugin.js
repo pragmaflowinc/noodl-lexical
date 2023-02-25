@@ -11,7 +11,7 @@ function RichText({ placeholder, readOnly, ...rest }) {
   const [settings, settingsDispatcher] = useSettings()
   const [editor] = useLexicalComposerContext()
   useEffect(() => {
-    editor.setEditable(readOnly)
+    editor.setEditable(!readOnly)
   }, [readOnly, editor])
   return <RichTextPlugin
     contentEditable={
