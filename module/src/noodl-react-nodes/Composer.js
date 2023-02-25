@@ -1,4 +1,3 @@
-import './composer.css'
 import React from 'react'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { defineReactNode } from '@noodl/noodl-sdk'
@@ -22,7 +21,7 @@ function Composer(props) {
   return (
     <SettingsProvider>
       <LexicalComposer initialConfig={initialState}>
-        <div className='TESTING'>
+        <div className='editor-shell'>
           {props.children}
         </div>
       </LexicalComposer>

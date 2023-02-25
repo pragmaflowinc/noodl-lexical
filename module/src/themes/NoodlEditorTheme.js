@@ -4,8 +4,6 @@
  *
  */
 
-import './NoodlEditorTheme.css'
-
 const theme = {
   blockCursor: 'NoodlEditorTheme__blockCursor',
   characterLimit: 'NoodlEditorTheme__characterLimit',

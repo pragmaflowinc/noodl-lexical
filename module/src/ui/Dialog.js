@@ -4,8 +4,6 @@
  *
  */
 
-import './Dialog.css'
-
 import * as React from 'react'
 
 export function DialogButtonsList({ children }) {

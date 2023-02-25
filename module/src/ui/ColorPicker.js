@@ -4,8 +4,6 @@
  *
  */
 
-import './ColorPicker.css'
-
 import { useEffect, useMemo, useRef, useState } from 'react'
 import * as React from 'react'
 
@@ -256,10 +254,10 @@ function rgb2hsv({ r, g, b }) {
 
   const h = d
     ? (max === r
-        ? (g - b) / d + (g < b ? 6 : 0)
-        : max === g
-          ? 2 + (b - r) / d
-          : 4 + (r - g) / d) * 60
+      ? (g - b) / d + (g < b ? 6 : 0)
+      : max === g
+        ? 2 + (b - r) / d
+        : 4 + (r - g) / d) * 60
     : 0
   const s = max ? (d / max) * 100 : 0
   const v = max * 100

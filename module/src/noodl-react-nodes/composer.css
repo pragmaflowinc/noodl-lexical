@@ -25,7 +25,7 @@ header {
 }
 
 header a {
-  max-width: 220px;
+  max-width: 220px; 
   margin: 20px 0 0 0;
   display: block;
 }

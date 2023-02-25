@@ -15,17 +15,15 @@ function RichText({ placeholder, readOnly, ...rest }) {
   }, [readOnly, editor])
   return <RichTextPlugin
     contentEditable={
-      <div className="editor-scroller">
-        <div className="editor" ref={(_floatingAnchorElem) => {
-          if (_floatingAnchorElem !== null && !settings.editableContentRef) {
-            settingsDispatcher({
-              type: 'setEditableContentRef',
-              editableContentRef: _floatingAnchorElem
-            })
-          }
-        }}>
-          <ContentEditable />
-        </div>
+      <div className="editor" ref={(_floatingAnchorElem) => {
+        if (_floatingAnchorElem !== null && !settings.editableContentRef) {
+          settingsDispatcher({
+            type: 'setEditableContentRef',
+            editableContentRef: _floatingAnchorElem
+          })
+        }
+      }}>
+        <ContentEditable />
       </div>
     }
     placeholder={<Placeholder>{placeholder}</Placeholder>}
