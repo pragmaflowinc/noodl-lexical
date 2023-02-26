@@ -133,6 +133,7 @@ function EditorState(props) {
         setIsEditable(editable);
       }),
       activeEditor.registerUpdateListener(({ editorState }) => {
+        props.onContentChanged();
         editorState.read(() => {
           updateToolbar();
         });
@@ -256,6 +257,10 @@ export default defineReactNode({
       this.setOutputs({ [propertyName]: propertyValue });
       this.sendSignalOnOutput("propertyChanged");
     };
+    this.props.onContentChanged = () => {
+      debugger;
+      this.sendSignalOnOutput("contentChanged");
+    };
   },
   outputs: {
     editorRef: {
@@ -273,6 +278,10 @@ export default defineReactNode({
     propertyChanged: {
       type: "signal",
       displayName: "Property Changed",
+    },
+    contentChanged: {
+      type: "signal",
+      displayName: "Content Changed",
     },
     blockType: {
       type: "string",
