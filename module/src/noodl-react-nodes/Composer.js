@@ -11,7 +11,7 @@ function Composer(props) {
   const initialState = {
     editorState: props.editorState ? props.editorState : emptyEditorState,
     nodes: [
-      ...props.lexicalNodes.map(ln => ln.outputs.node),
+      ...(props.lexicalNodes ? props.lexicalNodes.map(ln => ln.outputs.node) : []),
     ],
     onError(error) {
       console.error(error)
@@ -36,6 +36,16 @@ export const ComposerReactNode = defineReactNode({
     return Composer
   },
   initialize() {
+    debugger
+  },
+  changed: {
+    lexicalNodes(value) {
+      debugger
+      if (!value) {
+        this.sendWarning('Missing Nodes', 'There are no nodes configured for the composer. Add a RegisteredNode and connect it to the composer')
+      }
+
+    }
   },
   inputProps: {
     editorState: {

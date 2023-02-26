@@ -10,17 +10,21 @@ import { $isLinkNode } from "@lexical/link";
 import { $isListNode, ListNode } from "@lexical/list";
 import { $isHeadingNode } from "@lexical/rich-text";
 import {
-  $findMatchingParent, $getNearestNodeOfType,
-  mergeRegister
+  $findMatchingParent,
+  $getNearestNodeOfType,
+  mergeRegister,
 } from "@lexical/utils";
 import {
-  $getSelection, $isRangeSelection, $isRootOrShadowRoot, SELECTION_CHANGE_COMMAND,
+  $getSelection,
+  $isRangeSelection,
+  $isRootOrShadowRoot,
+  SELECTION_CHANGE_COMMAND,
   COMMAND_PRIORITY_CRITICAL,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
 } from "lexical";
 import { getSelectedNode } from "../utils/getSelectedNode";
-
+import { blockTypeToBlockName } from "../utils/getBlockType";
 
 function EditorState(props) {
   const [editor] = useLexicalComposerContext();
@@ -45,39 +49,63 @@ function EditorState(props) {
   const [isEditable, setIsEditable] = useState(false);
   const [activeEditor, setActiveEditor] = useState(editor);
 
-  useEffect(() => { props.onPropertyChanged('blockType', blockType) }, [blockType])
-  useEffect(() => { props.onPropertyChanged('fontSize', fontSize) }, [fontSize])
-  useEffect(() => { props.onPropertyChanged('fontColor', fontColor) }, [fontColor])
-  useEffect(() => { props.onPropertyChanged('bgColor', bgColor) }, [bgColor])
-  useEffect(() => { props.onPropertyChanged('fontFamily', fontFamily) }, [fontFamily])
-  useEffect(() => { props.onPropertyChanged('isLink', isLink) }, [isLink])
-  useEffect(() => { props.onPropertyChanged('isBold', isBold) }, [isBold])
-  useEffect(() => { props.onPropertyChanged('isItalic', isItalic) }, [isItalic])
-  useEffect(() => { props.onPropertyChanged('isUnderline', isUnderline) }, [isUnderline])
-  useEffect(() => { props.onPropertyChanged('isStrikethrough', isStrikethrough) }, [isStrikethrough])
-  useEffect(() => { props.onPropertyChanged('isSubscript', isSubscript) }, [isSubscript])
-  useEffect(() => { props.onPropertyChanged('isSuperscript', isSuperscript) }, [isSuperscript])
-  useEffect(() => { props.onPropertyChanged('isCode', isCode) }, [isCode])
-  useEffect(() => { props.onPropertyChanged('canUndo', canUndo) }, [canUndo])
-  useEffect(() => { props.onPropertyChanged('canRedo', canRedo) }, [canRedo])
-  useEffect(() => { props.onPropertyChanged('isRTL', isRTL) }, [isRTL])
-  useEffect(() => { props.onPropertyChanged('codeLanguage', codeLanguage) }, [codeLanguage])
-  useEffect(() => { props.onPropertyChanged('isEditable', isEditable) }, [isEditable])
-
-  const blockTypeToBlockName = {
-    bullet: 'Bulleted List',
-    check: 'Check List',
-    code: 'Code Block',
-    h1: 'Heading 1',
-    h2: 'Heading 2',
-    h3: 'Heading 3',
-    h4: 'Heading 4',
-    h5: 'Heading 5',
-    h6: 'Heading 6',
-    number: 'Numbered List',
-    paragraph: 'Normal',
-    quote: 'Quote'
-  }
+  useEffect(() => {
+    props.onPropertyChanged("blockType", blockType);
+  }, [blockType]);
+  useEffect(() => {
+    props.onPropertyChanged("fontSize", fontSize);
+  }, [fontSize]);
+  useEffect(() => {
+    props.onPropertyChanged("fontColor", fontColor);
+  }, [fontColor]);
+  useEffect(() => {
+    props.onPropertyChanged("bgColor", bgColor);
+  }, [bgColor]);
+  useEffect(() => {
+    props.onPropertyChanged("fontFamily", fontFamily);
+  }, [fontFamily]);
+  useEffect(() => {
+    props.onPropertyChanged("isLink", isLink);
+  }, [isLink]);
+  useEffect(() => {
+    props.onPropertyChanged("isBold", isBold);
+  }, [isBold]);
+  useEffect(() => {
+    props.onPropertyChanged("isItalic", isItalic);
+  }, [isItalic]);
+  useEffect(() => {
+    props.onPropertyChanged("isUnderline", isUnderline);
+  }, [isUnderline]);
+  useEffect(() => {
+    props.onPropertyChanged("isStrikethrough", isStrikethrough);
+  }, [isStrikethrough]);
+  useEffect(() => {
+    props.onPropertyChanged("isSubscript", isSubscript);
+  }, [isSubscript]);
+  useEffect(() => {
+    props.onPropertyChanged("isSuperscript", isSuperscript);
+  }, [isSuperscript]);
+  useEffect(() => {
+    props.onPropertyChanged("isCode", isCode);
+  }, [isCode]);
+  useEffect(() => {
+    props.onPropertyChanged("canUndo", canUndo);
+  }, [canUndo]);
+  useEffect(() => {
+    props.onPropertyChanged("canRedo", canRedo);
+  }, [canRedo]);
+  useEffect(() => {
+    props.onPropertyChanged("isRTL", isRTL);
+  }, [isRTL]);
+  useEffect(() => {
+    props.onPropertyChanged("codeLanguage", codeLanguage);
+  }, [codeLanguage]);
+  useEffect(() => {
+    props.onPropertyChanged("isEditable", isEditable);
+  }, [isEditable]);
+  useEffect(() => {
+    props.onPropertyChanged("activeEditorRef", activeEditor);
+  }, [activeEditor]);
 
   useEffect(() => {
     if (editor) {
@@ -91,42 +119,42 @@ function EditorState(props) {
     return editor.registerCommand(
       SELECTION_CHANGE_COMMAND,
       (_payload, newEditor) => {
-        updateToolbar()
-        setActiveEditor(newEditor)
-        return false
+        updateToolbar();
+        setActiveEditor(newEditor);
+        return false;
       },
       COMMAND_PRIORITY_CRITICAL
-    )
-  }, [editor, updateToolbar])
+    );
+  }, [editor, updateToolbar]);
 
   useEffect(() => {
     return mergeRegister(
       editor.registerEditableListener((editable) => {
-        setIsEditable(editable)
+        setIsEditable(editable);
       }),
       activeEditor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
-          updateToolbar()
-        })
+          updateToolbar();
+        });
       }),
       activeEditor.registerCommand(
         CAN_UNDO_COMMAND,
         (payload) => {
-          setCanUndo(payload)
-          return false
+          setCanUndo(payload);
+          return false;
         },
         COMMAND_PRIORITY_CRITICAL
       ),
       activeEditor.registerCommand(
         CAN_REDO_COMMAND,
         (payload) => {
-          setCanRedo(payload)
-          return false
+          setCanRedo(payload);
+          return false;
         },
         COMMAND_PRIORITY_CRITICAL
       )
-    )
-  }, [activeEditor, editor, updateToolbar])
+    );
+  }, [activeEditor, editor, updateToolbar]);
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -136,9 +164,9 @@ function EditorState(props) {
         anchorNode.getKey() === "root"
           ? anchorNode
           : $findMatchingParent(anchorNode, (e) => {
-            const parent = e.getParent();
-            return parent !== null && $isRootOrShadowRoot(parent);
-          });
+              const parent = e.getParent();
+              return parent !== null && $isRootOrShadowRoot(parent);
+            });
 
       if (element === null) {
         element = anchorNode.getTopLevelElementOrThrow();
@@ -227,12 +255,16 @@ export default defineReactNode({
     this.props.onPropertyChanged = (propertyName, propertyValue) => {
       this.setOutputs({ [propertyName]: propertyValue });
       this.sendSignalOnOutput("propertyChanged");
-    }
+    };
   },
   outputs: {
     editorRef: {
       type: "object",
       displayName: "Editor Ref",
+    },
+    activeEditorRef: {
+      type: "object",
+      displayName: "Active Editor Ref",
     },
     editorSet: {
       type: "signal",
@@ -313,6 +345,6 @@ export default defineReactNode({
     isEditable: {
       type: "boolean",
       displayName: "Is Editable",
-    }
-  }
+    },
+  },
 });

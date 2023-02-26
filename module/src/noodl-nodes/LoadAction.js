@@ -16,7 +16,6 @@ export const NoodlLoadAction = defineLexicalAction({
     }
   },
   onAction: (_this) => {
-    debugger
     const editorState = _this.inputs.editorRef.parseEditorState(
       JSON.stringify(_this.inputs.desiredState.editorState)
     )
