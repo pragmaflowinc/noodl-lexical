@@ -24,7 +24,6 @@ export default defineNode({
       this._internal.children.push(child);
     },
     removeChild(child) {
-      debugger
       const index = this._internal.children.indexOf(child);
       if (index !== -1) {
         this._internal.children.splice(index, 1);

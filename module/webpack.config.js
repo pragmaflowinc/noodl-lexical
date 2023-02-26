@@ -29,7 +29,7 @@ module.exports = (env) => {
       'react-dom': 'ReactDOM'
     },
     resolve: {
-      extensions: ['.js', '.jsx', '.json', '.css']
+      extensions: ['.js', '.jsx', '.json']
     },
     plugins: [
       new CleanWebpackPlugin(outputPath),
@@ -57,24 +57,13 @@ module.exports = (env) => {
             presets: ['@babel/preset-env', '@babel/preset-react']
           }
         },
-        {
-          test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader'
-          ]
-        },
-        {
-          test: /\.svg$/,
-          use: [
-            {
-              loader: 'svg-url-loader',
-              options: {
-                limit: 10000
-              }
-            }
-          ]
-        }
+        // {
+        //   test: /\.css$/,
+        //   use: [
+        //     'style-loader',
+        //     'css-loader'
+        //   ]
+        // }
       ]
     }
   }
